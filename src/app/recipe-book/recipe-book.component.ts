@@ -10,9 +10,7 @@ export class RecipeBookComponent implements OnInit {
 
   currentRecipe: Recipe;
 
-  constructor() {
-    this.changeRecipe = this.changeRecipe.bind(this);
-  }
+  constructor() {}
 
   ngOnInit() {
   }

@@ -1,5 +1,6 @@
-<app-navbar></app-navbar>
+<app-navbar (navClicked)="currentView = $event"></app-navbar>
+
 <div class="container">
-  <app-shopping-list></app-shopping-list>
-  <app-recipe-book></app-recipe-book>
+  <app-shopping-list *ngIf="currentView === 'shopping'"></app-shopping-list>
+  <app-recipe-book *ngIf="currentView === 'recipes'"></app-recipe-book>
 </div>
