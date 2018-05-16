@@ -1,0 +1,10 @@
+.form-group {
+  display: inline-block;
+}
+.left-group {
+  width: 75%;
+  margin-right: 5%;
+}
+.right-group {
+  width: 20%;
+}

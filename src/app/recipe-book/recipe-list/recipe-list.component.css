@@ -1,0 +1,26 @@
+.recipes {
+
+}
+
+.recipe {
+  display: block;
+  position: relative;
+  padding: 5px 10px;
+  margin-bottom: 1rem;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  box-shadow: 1px 1px 2px 0 rgba(0, 0, 0, 0.2);
+}
+.recipe:last-child {
+  margin-bottom: 0;
+}
+.recipe:hover {
+  background-color: #ddd;
+}
+
+.recipe img {
+  max-height: 100px;
+  position: absolute;
+  right: 0.3rem;
+  top: 0.3rem;
+}
