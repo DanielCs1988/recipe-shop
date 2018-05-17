@@ -18,8 +18,13 @@
   background-color: #ddd;
 }
 
-.recipe img {
+p, h5 {
+  max-width: 70%;
+}
+
+img {
   max-height: 100px;
+  max-width: 30%;
   position: absolute;
   right: 0.3rem;
   top: 0.3rem;

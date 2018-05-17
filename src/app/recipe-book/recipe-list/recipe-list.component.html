@@ -1,6 +1,6 @@
 <div class="recipes">
 
-  <a *ngFor="let recipe of recipes" class="recipe" href="#" (click)="recipeSwitch.emit(recipe)">
+  <a *ngFor="let recipe of recipes" class="recipe" href="#" (click)="changeRecipe(recipe)">
     <h5>{{ recipe.title }}</h5>
     <p>{{ recipe.description }}</p>
     <img [src]="recipe.imagePath" [alt]="recipe.title">

@@ -2,15 +2,15 @@
 
   <div class="form-group left-group">
     <label for="ingredient-name">Name:</label>
-    <input type="text" class="form-control" id="ingredient-name">
+    <input type="text" class="form-control" id="ingredient-name" #name>
   </div>
 
   <div class="form-group right-group">
     <label for="ingredient-amount">Amount:</label>
-    <input type="number" class="form-control" id="ingredient-amount">
+    <input type="number" class="form-control" id="ingredient-amount" #amount>
   </div>
 
-  <button class="btn">Add</button>
+  <button class="btn" (click)="addItem(name, amount, $event)">Add</button>
   <button class="btn">Remove</button>
   <button class="btn" type="reset">Clear</button>
 

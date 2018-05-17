@@ -8,7 +8,7 @@ import { ShoppingListEditorComponent } from './shopping-list/shopping-list-edito
 import { RecipeBookComponent } from './recipe-book/recipe-book.component';
 import { RecipeListComponent } from './recipe-book/recipe-list/recipe-list.component';
 import { RecipeDetailComponent } from './recipe-book/recipe-detail/recipe-detail.component';
-import { IngredientListComponent } from './shopping-list/ingredient-list/ingredient-list.component';
+import {DropdownDirective} from './dropdown.directive';
 
 @NgModule({
   declarations: [
@@ -19,7 +19,7 @@ import { IngredientListComponent } from './shopping-list/ingredient-list/ingredi
     RecipeBookComponent,
     RecipeListComponent,
     RecipeDetailComponent,
-    IngredientListComponent
+    DropdownDirective
   ],
   imports: [
     BrowserModule

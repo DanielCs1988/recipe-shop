@@ -1,3 +1,25 @@
-<h5>{{ recipe.title }}</h5>
-<p>{{ recipe.description }}</p>
-<img [src]="recipe.imagePath" [alt]="recipe.title">
+<div *ngIf="recipe; else infoText">
+
+  <h5>{{ recipe.title }}</h5>
+  <p>{{ recipe.description }}</p>
+  <img [src]="recipe.imagePath" [alt]="recipe.title">
+
+  <button dropdown class="dropdown-toggle">Dropdown</button>
+  <ul>
+    <li (click)="ingredientsToCart()">Add to Shopping Cart</li>
+    <li>Option 2</li>
+    <li>Option 3</li>
+  </ul>
+
+  <ul>Ingredients:
+    <li *ngFor="let ingredient of recipe.ingredients">
+      {{ ingredient.name }}: {{ ingredient.amount }}
+    </li>
+  </ul>
+
+</div>
+<ng-template #infoText >
+  <p style="text-align: center">Please select a recipe!</p>
+</ng-template>
+
+

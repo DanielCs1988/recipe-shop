@@ -97,3 +97,27 @@ label {
   display: inline-block;
   margin-bottom: .5rem;
 }
+
+.dropdown-toggle + ul {
+  display: none;
+  padding: 1rem;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+.dropdown-toggle + ul li:hover {
+  background-color: #ddd;
+  cursor: pointer;
+}
+.dropdown-toggle + ul li {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+.dropdown-toggle + ul li:last-child {
+  border-bottom: none;
+}
+.dropdown-toggle.open + ul {
+  display: block;
+  animation: appear 0.2s ease-in forwards;
+}
+@keyframes appear {
+  0% { opacity: 0 }
+  100% { opacity: 1 }
+}
