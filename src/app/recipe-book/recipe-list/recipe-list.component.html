@@ -1,6 +1,8 @@
 <div class="recipes">
 
-  <a *ngFor="let recipe of recipes" class="recipe" href="#" (click)="changeRecipe(recipe)">
+  <a class="btn" routerLink="new">New recipe</a>
+
+  <a *ngFor="let recipe of recipes" class="recipe" routerLinkActive="active" [routerLink]="recipe.id">
     <h5>{{ recipe.title }}</h5>
     <p>{{ recipe.description }}</p>
     <img [src]="recipe.imagePath" [alt]="recipe.title">

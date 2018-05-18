@@ -1,13 +1,13 @@
-import {EventEmitter, Injectable} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Ingredient} from '../models/Ingredient';
-import {Observable, of} from 'rxjs';
+import {Observable, of, Subject} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class IngredientService {
 
-  ingredientsChanged = new EventEmitter<Ingredient[]>();
+  recipeIngredients = new Subject<Ingredient[]>();
 
   private mockData: Ingredient[] = [
     new Ingredient('Beef sirloin', 10),
@@ -24,11 +24,11 @@ export class IngredientService {
 
   addIngredient(ingredient: Ingredient) {
     this.mockData.push(ingredient);
-    this.ingredientsChanged.emit(this.mockData.slice());
+    this.recipeIngredients.next(this.mockData.slice());
   }
 
   addIngredients(ingredients: Ingredient[]) {
     this.mockData.push(...ingredients);
-    this.ingredientsChanged.emit(this.mockData.slice());
+    this.recipeIngredients.next(this.mockData.slice());
   }
 }

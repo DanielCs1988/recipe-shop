@@ -18,8 +18,4 @@ export class RecipeListComponent implements OnInit {
       (recipes: Recipe[]) => this.recipes = recipes
     );
   }
-
-  changeRecipe(recipe: Recipe) {
-    this.recipeService.recipeChanged.emit(recipe);
-  }
 }

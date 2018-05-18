@@ -1,0 +1,2 @@
+<p>Current mode: {{ editMode ? 'editing recipe' : 'creating new recipe' }}</p>
+<p *ngIf="recipe">Recipe name and id: {{ recipe.title }} ({{ recipe.id }})</p>
