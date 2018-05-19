@@ -1,5 +1,3 @@
-import {Ingredient} from './Ingredient';
-
 export class Recipe {
 
   constructor(
@@ -7,7 +5,7 @@ export class Recipe {
     public title: string,
     public description: string,
     public imagePath: string,
-    public ingredients: Ingredient[]
+    public ingredients: {name: string, amount: number}[]
   ) {}
 
 }

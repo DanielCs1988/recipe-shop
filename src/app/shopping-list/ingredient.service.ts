@@ -7,31 +7,43 @@ import {Observable, of, Subject} from 'rxjs';
 })
 export class IngredientService {
 
-  recipeIngredients = new Subject<Ingredient[]>();
+  ingredientsChanged = new Subject<Ingredient[]>();
   startedEditing = new Subject<Ingredient>();
 
   private mockData: Ingredient[] = [
     new Ingredient(1, 'Beef sirloin', 10),
     new Ingredient(2, 'Cheese', 5),
-    new Ingredient(3, 'Potatoes', 20),
+    new Ingredient(3, 'Potato', 20),
     new Ingredient(4, 'Goose liver', 7)
   ];
 
   constructor() { }
+
+  generateId(): number {
+    return Math.max(...this.mockData.map(ingredient => ingredient.id)) + 1;
+  }
 
   getIngredients(): Observable<Ingredient[]> {
     return of(this.mockData.slice());
   }
 
   addIngredient(name: string, amount: number) {
-    const newIngredient = new Ingredient(this.mockData.length + 1, name, amount);
+    const newIngredient = new Ingredient(this.generateId(), name, amount);
     this.mockData.push(newIngredient);
-    this.recipeIngredients.next(this.mockData.slice());
+    this.ingredientsChanged.next(this.mockData.slice());
   }
 
-  addIngredients(ingredients: Ingredient[]) {
-    this.mockData.push(...ingredients);
-    this.recipeIngredients.next(this.mockData.slice());
+  addIngredients(items: {name: string, amount: number}[]) {
+    for (let item of items) {
+      const possibleMatch = this.mockData.find(ingredient => ingredient.name === item.name);
+      if (possibleMatch !== undefined) {
+        possibleMatch.amount += item.amount;
+      } else {
+        const newIngredient = new Ingredient(this.generateId(), item.name, item.amount);
+        this.mockData.push(newIngredient);
+      }
+    }
+    this.ingredientsChanged.next(this.mockData.slice());
   }
 
   startEditing(ingredient: Ingredient) {
@@ -43,5 +55,14 @@ export class IngredientService {
     if (ingredient === undefined) return;
     ingredient.name = name;
     ingredient.amount = amount;
+    this.ingredientsChanged.next(this.mockData.slice());
   }
+
+  deleteIngredient(id: number) {
+    this.mockData = this.mockData.filter(
+      ingredient => ingredient.id !== id
+    );
+    this.ingredientsChanged.next(this.mockData.slice());
+  }
+
 }

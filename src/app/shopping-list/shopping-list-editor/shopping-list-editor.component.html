@@ -15,7 +15,7 @@
   <button class="btn" type="submit" [disabled]="!ingredientForm.valid">
     {{ editMode ? 'Update' : 'Add' }}
   </button>
-  <button class="btn">Remove</button>
+  <button class="btn" type="button" (click)="deleteItem()">Remove</button>
   <button class="btn" type="button" (click)="clearForm()">Clear</button>
 
 </form>
