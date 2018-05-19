@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Recipe} from '../../models/Recipe';
-import {ActivatedRoute, Params} from '@angular/router';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 import {RecipeService} from '../recipe.service';
 import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
 
@@ -14,7 +14,7 @@ export class RecipeEditComponent implements OnInit {
   recipeForm: FormGroup;
   editMode = false;
 
-  constructor(private route: ActivatedRoute, private recipeService: RecipeService) { }
+  constructor(private route: ActivatedRoute, private router: Router, private recipeService: RecipeService) { }
 
   ngOnInit() {
     this.route.params.subscribe(
@@ -33,13 +33,15 @@ export class RecipeEditComponent implements OnInit {
   }
 
   private initForm(recipe?: Recipe) {
+    let id = 0;
     let name = '';
     let description = '';
     let imagePath = '';
     let ingredients = new FormArray([]);
 
     if (this.editMode) {
-      name = recipe.title;
+      id = recipe.id;
+      name = recipe.name;
       description = recipe.description;
       imagePath = recipe.imagePath;
       recipe.ingredients.forEach(
@@ -53,6 +55,7 @@ export class RecipeEditComponent implements OnInit {
     }
 
     this.recipeForm = new FormGroup({
+      'id': new FormControl(id),
       'name': new FormControl(name, Validators.required),
       'description': new FormControl(description, Validators.required),
       'imagePath': new FormControl(imagePath, Validators.required),
@@ -61,7 +64,13 @@ export class RecipeEditComponent implements OnInit {
   }
 
   onSubmit() {
-
+    if (!this.recipeForm.valid) return;
+    if (this.editMode) {
+      this.recipeService.updateRecipe(this.recipeForm.value);
+    } else {
+      this.recipeService.createRecipe(this.recipeForm.value);
+    }
+    this.closeEditor();
   }
 
   newIngredient() {
@@ -71,5 +80,13 @@ export class RecipeEditComponent implements OnInit {
         Validators.required, Validators.pattern(/^[1-9]+\d*$/)
       ])
     }));
+  }
+
+  deleteIngredient(index: number) {
+    (<FormArray>this.recipeForm.get('ingredients')).removeAt(index);
+  }
+
+  closeEditor() {
+    this.router.navigate(['/recipes']);
   }
 }

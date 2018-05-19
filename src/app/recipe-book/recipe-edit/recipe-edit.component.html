@@ -2,7 +2,7 @@
 
   <div>
     <button type="submit" [disabled]="!recipeForm.valid">Save</button>
-    <button type="button">Cancel</button>
+    <button type="button" (click)="closeEditor()">Cancel</button>
   </div>
 
   <div class="form-group">
@@ -17,9 +17,9 @@
 
   <div class="form-group">
     <label for="imagePath">Image URL</label>
-    <input type="text" id="imagePath" class="form-control" formControlName="imagePath">
+    <input type="text" id="imagePath" class="form-control" formControlName="imagePath" #imagePath>
   </div>
-  <img src="" alt="">
+  <img *ngIf="imagePath.value" [src]="imagePath.value" alt="Your image">
 
   <div formArrayName="ingredients">
     <div *ngFor="let ingredient of recipeForm.get('ingredients').controls; let i = index" [formGroupName]="i">
@@ -30,7 +30,7 @@
         <input type="number" class="form-control" formControlName="amount">
       </div>
       <div class="form-group right-group">
-        <button>&times;</button>
+        <button type="button" (click)="deleteIngredient(i)">&times;</button>
       </div>
     </div>
   </div>

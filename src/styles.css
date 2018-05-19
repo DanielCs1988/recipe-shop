@@ -30,6 +30,10 @@ textarea {
   resize: none;
 }
 
+label {
+  font-weight: bold;
+}
+
 .container {
   max-width: 1200px;
   margin: 5rem auto;

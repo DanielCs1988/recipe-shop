@@ -1,14 +1,14 @@
 <div *ngIf="recipe; else infoText">
 
-  <h5>{{ recipe.title }}</h5>
+  <h5>{{ recipe.name }}</h5>
   <p>{{ recipe.description }}</p>
-  <img [src]="recipe.imagePath" [alt]="recipe.title">
+  <img [src]="recipe.imagePath" [alt]="recipe.name">
 
   <button dropdown class="dropdown-toggle">Dropdown</button>
   <ul>
     <li (click)="ingredientsToCart()">Add to Shopping Cart</li>
     <li (click)="editRecipe()">Edit recipe</li>
-    <li>Option 3</li>
+    <li (click)="deleteRecipe()">Delete recipe</li>
   </ul>
 
   <ul>Ingredients:

@@ -13,6 +13,8 @@ import {AppRoutingModule} from './app-routing.module';
 import {EmptyRecipeComponent} from './recipe-book/empty-recipe.component';
 import { RecipeEditComponent } from './recipe-book/recipe-edit/recipe-edit.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {RecipeService} from './recipe-book/recipe.service';
+import {IngredientService} from './shopping-list/ingredient.service';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [RecipeService, IngredientService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

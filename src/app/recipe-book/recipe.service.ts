@@ -1,7 +1,9 @@
 import {Recipe} from '../models/Recipe';
-import {Observable, of} from 'rxjs';
+import {Observable, of, Subject} from 'rxjs';
 
 export class RecipeService {
+
+  recipesChanged = new Subject<Recipe[]>();
 
   private mockData: Recipe[] = [
     new Recipe(
@@ -29,6 +31,10 @@ export class RecipeService {
 
   constructor() { }
 
+  generateId(): number {
+    return Math.max(...this.mockData.map(recipe => recipe.id)) + 1;
+  }
+
   getRecipes(): Observable<Recipe[]> {
     return of(this.mockData.slice());
   }
@@ -38,5 +44,26 @@ export class RecipeService {
     return of(this.mockData.find(
       recipe => recipe.id === id
     ));
+  }
+
+  updateRecipe(newRecipe: Recipe) {
+    for (let i = 0; i < this.mockData.length; i++) {
+      if (this.mockData[i].id === newRecipe.id) {
+        this.mockData[i] = newRecipe;
+        break;
+      }
+    }
+    this.recipesChanged.next(this.mockData.slice());
+  }
+
+  createRecipe(newRecipe: Recipe) {
+    newRecipe.id = this.generateId();
+    this.mockData.push(newRecipe);
+    this.recipesChanged.next(this.mockData.slice());
+  }
+
+  deleteRecipe(id: number) {
+    this.mockData = this.mockData.filter(recipe => recipe.id !== id);
+    this.recipesChanged.next(this.mockData.slice());
   }
 }
