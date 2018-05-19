@@ -1,0 +1,14 @@
+.left-group, .middle-group, .right-group {
+  display: inline-block;
+}
+.left-group {
+  width: 60%;
+  margin-right: 5%;
+}
+.middle-group {
+  width: 20%;
+  margin-right: 5%;
+}
+.right-group {
+  width: 10%;
+}

@@ -1,2 +1,40 @@
-<p>Current mode: {{ editMode ? 'editing recipe' : 'creating new recipe' }}</p>
-<p *ngIf="recipe">Recipe name and id: {{ recipe.title }} ({{ recipe.id }})</p>
+<form class="pane" [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
+
+  <div>
+    <button type="submit" [disabled]="!recipeForm.valid">Save</button>
+    <button type="button">Cancel</button>
+  </div>
+
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input type="text" id="name" class="form-control" formControlName="name">
+  </div>
+
+  <div class="form-group">
+    <label for="description">Description</label>
+    <textarea id="description" rows="6" class="form-control" formControlName="description"></textarea>
+  </div>
+
+  <div class="form-group">
+    <label for="imagePath">Image URL</label>
+    <input type="text" id="imagePath" class="form-control" formControlName="imagePath">
+  </div>
+  <img src="" alt="">
+
+  <div formArrayName="ingredients">
+    <div *ngFor="let ingredient of recipeForm.get('ingredients').controls; let i = index" [formGroupName]="i">
+      <div class="form-group left-group">
+        <input type="text" class="form-control" formControlName="name">
+      </div>
+      <div class="form-group middle-group">
+        <input type="number" class="form-control" formControlName="amount">
+      </div>
+      <div class="form-group right-group">
+        <button>&times;</button>
+      </div>
+    </div>
+  </div>
+  <button type="button" (click)="newIngredient()">Add Ingredient</button>
+
+
+</form>

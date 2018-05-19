@@ -38,6 +38,7 @@ export class ShoppingListEditorComponent implements OnInit, OnDestroy {
   }
 
   deleteItem() {
+    if (!this.editMode) return;
     this.ingredientService.deleteIngredient(this.ingredient.id);
     this.clearForm();
   }

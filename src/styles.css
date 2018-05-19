@@ -26,6 +26,10 @@ a {
   text-decoration: none;
 }
 
+textarea {
+  resize: none;
+}
+
 .container {
   max-width: 1200px;
   margin: 5rem auto;
@@ -97,6 +101,11 @@ button:disabled, .btn:disabled {
   border: 1px solid #ced4da;
   border-radius: .25rem;
   box-sizing: border-box;
+}
+
+.form-control.ng-invalid.ng-touched {
+  border: 1px solid red;
+  box-shadow: 1px 1px 5px 2px rgba(255, 0, 0, 0.6);
 }
 
 label {
