@@ -8,12 +8,13 @@ import {Observable, of, Subject} from 'rxjs';
 export class IngredientService {
 
   recipeIngredients = new Subject<Ingredient[]>();
+  startedEditing = new Subject<Ingredient>();
 
   private mockData: Ingredient[] = [
-    new Ingredient('Beef sirloin', 10),
-    new Ingredient('Cheese', 5),
-    new Ingredient('Potatoes', 20),
-    new Ingredient('Goose liver', 7)
+    new Ingredient(1, 'Beef sirloin', 10),
+    new Ingredient(2, 'Cheese', 5),
+    new Ingredient(3, 'Potatoes', 20),
+    new Ingredient(4, 'Goose liver', 7)
   ];
 
   constructor() { }
@@ -22,13 +23,25 @@ export class IngredientService {
     return of(this.mockData.slice());
   }
 
-  addIngredient(ingredient: Ingredient) {
-    this.mockData.push(ingredient);
+  addIngredient(name: string, amount: number) {
+    const newIngredient = new Ingredient(this.mockData.length + 1, name, amount);
+    this.mockData.push(newIngredient);
     this.recipeIngredients.next(this.mockData.slice());
   }
 
   addIngredients(ingredients: Ingredient[]) {
     this.mockData.push(...ingredients);
     this.recipeIngredients.next(this.mockData.slice());
+  }
+
+  startEditing(ingredient: Ingredient) {
+    this.startedEditing.next(ingredient);
+  }
+
+  updateIngredient(id: number, name: string, amount: number) {
+    const ingredient = this.mockData.find(ingredient => ingredient.id === id);
+    if (ingredient === undefined) return;
+    ingredient.name = name;
+    ingredient.amount = amount;
   }
 }

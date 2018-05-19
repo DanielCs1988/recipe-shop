@@ -1,17 +1,21 @@
-<form class="pane">
+<form class="pane" #ingredientForm="ngForm" (ngSubmit)="submitItem(ingredientForm)">
 
   <div class="form-group left-group">
-    <label for="ingredient-name">Name:</label>
-    <input type="text" class="form-control" id="ingredient-name" #name>
+    <label for="name">Name:</label>
+    <input type="text" class="form-control" id="name" name="name"
+           [ngModel]="editMode ? ingredient.name : ''" required>
   </div>
 
   <div class="form-group right-group">
-    <label for="ingredient-amount">Amount:</label>
-    <input type="number" class="form-control" id="ingredient-amount" #amount>
+    <label for="amount">Amount:</label>
+    <input type="number" class="form-control" id="amount" name="amount"
+           [ngModel]="editMode ? ingredient.amount: ''" required pattern="^[1-9]+\d*$">
   </div>
 
-  <button class="btn" (click)="addItem(name, amount, $event)">Add</button>
+  <button class="btn" type="submit" [disabled]="!ingredientForm.valid">
+    {{ editMode ? 'Update' : 'Add' }}
+  </button>
   <button class="btn">Remove</button>
-  <button class="btn" type="reset">Clear</button>
+  <button class="btn" type="button" (click)="clearForm()">Clear</button>
 
 </form>

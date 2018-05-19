@@ -2,7 +2,7 @@
   <div class="col-6">
 
     <div class="pane">
-      <a href="#" class="ingredient" *ngFor="let ingredient of ingredients">
+      <a class="ingredient" *ngFor="let ingredient of ingredients" (click)="onEditIngredient(ingredient)">
         {{ ingredient.name }} ({{ ingredient.amount }})
       </a>
     </div>

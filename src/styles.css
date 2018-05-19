@@ -64,14 +64,19 @@ button, .btn {
   font-weight: bold;
   margin: 3px;
 }
-
 button:hover, .btn:hover {
   background-color: #0c83e2;
   border-color: #0c7cd5;
   box-shadow: 1px 1px 5px 0 #4c4e56;
   cursor: pointer;
 }
-
+button:disabled, .btn:disabled {
+  background-color: #2196F3;
+  border-color: #2196F3;
+  opacity: 0.65;
+  box-shadow: none;
+  cursor: not-allowed;
+}
 .btn-block {
   width: 100%
 }
