@@ -1,0 +1,15 @@
+<form class="pane center-block" #signinForm="ngForm" (ngSubmit)="onSignin()">
+
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input type="email" id="email" class="form-control" name="email" ngModel email required>
+  </div>
+
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input type="password" id="password" class="form-control" name="password" ngModel required [minlength]="6">
+  </div>
+
+  <button type="submit" class="btn-block">Sign In</button>
+
+</form>

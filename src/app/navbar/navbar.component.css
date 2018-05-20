@@ -10,8 +10,11 @@
   z-index: 1;
 }
 
+span {
+  margin: 1rem 0;
+}
 a {
-  margin: 1rem 1rem;
+  margin: 0 1rem;
   font-weight: bold;
   font-size: 1.2rem;
   cursor: pointer;

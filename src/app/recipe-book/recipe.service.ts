@@ -1,8 +1,8 @@
 import {Recipe} from '../models/Recipe';
-import {Observable, of, Subject} from 'rxjs';
-import {Http, Response} from '@angular/http';
+import {Subject} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
 import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable()
 export class RecipeService {
@@ -12,14 +12,13 @@ export class RecipeService {
 
   recipes: Recipe[] = [];
 
-  constructor(private http: Http) {
+  constructor(private http: HttpClient) {
     this.getRecipes();
   }
 
   getRecipes(): void {
-    this.http.get(this.url).pipe(
-      map((response: Response) => {
-        const recipes: Recipe[] = response.json();
+    this.http.get<Recipe[]>(this.url).pipe(
+      map(recipes => {
         for (let recipe of recipes) {
           if (!recipe['ingredients']) {
             recipe['ingredients'] = [];

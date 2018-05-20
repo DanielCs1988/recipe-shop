@@ -1,4 +1,11 @@
 <nav class="navbar">
-  <a routerLinkActive="active" routerLink="recipes">Recipes</a>
-  <a routerLinkActive="active" routerLink="shopping">Shopping</a>
+  <span *ngIf="authService.isAuthenticated()">
+    <a routerLinkActive="active" routerLink="recipes">Recipes</a>
+    <a routerLinkActive="active" routerLink="shopping">Shopping</a>
+    <a (click)="logout()">Logout</a>
+  </span>
+  <span *ngIf="!authService.isAuthenticated()">
+    <a routerLinkActive="active" routerLink="signup">Register</a>
+    <a routerLinkActive="active" routerLink="signin">Login</a>
+  </span>
 </nav>
