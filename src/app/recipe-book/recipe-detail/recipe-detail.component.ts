@@ -26,9 +26,8 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
     this.paramSubscription = this.route.params.subscribe(
       (params: Params) => {
         const id = +params['id'];
-        this.recipeService.getRecipe(id).subscribe(
-          recipe => this.recipe = recipe
-        );
+        this.recipe = this.recipeService.getRecipe(id);
+        if (this.recipe === undefined) this.router.navigate(['../'], {relativeTo: this.route});
       }
     );
   }

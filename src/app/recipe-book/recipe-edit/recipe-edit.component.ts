@@ -17,14 +17,18 @@ export class RecipeEditComponent implements OnInit {
   constructor(private route: ActivatedRoute, private router: Router, private recipeService: RecipeService) { }
 
   ngOnInit() {
+    // TODO: shows error when reloading page on an edit route
     this.route.params.subscribe(
       (params: Params) => {
         const id = params['id'];
         this.editMode = id !== undefined;
         if (this.editMode) {
-          this.recipeService.getRecipe(+id).subscribe(
-            recipe => this.initForm(recipe)
-          );
+          const recipe = this.recipeService.getRecipe(+id);
+          if (recipe === undefined) {
+            this.router.navigate(['../'], {relativeTo: this.route});
+          } else {
+            this.initForm(recipe);
+          }
         } else {
           this.initForm();
         }

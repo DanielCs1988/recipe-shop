@@ -1,4 +1,4 @@
-<form class="pane" [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
+<form *ngIf="recipeForm" class="pane" [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
 
   <div>
     <button type="submit" [disabled]="!recipeForm.valid">Save</button>

@@ -1,69 +1,73 @@
 import {Recipe} from '../models/Recipe';
 import {Observable, of, Subject} from 'rxjs';
+import {Http, Response} from '@angular/http';
+import {catchError, map} from 'rxjs/operators';
+import {Injectable} from '@angular/core';
 
+@Injectable()
 export class RecipeService {
 
   recipesChanged = new Subject<Recipe[]>();
+  private url = 'https://ng-recipe-book-afefb.firebaseio.com/recipes.json';
 
-  private mockData: Recipe[] = [
-    new Recipe(
-      1,
-      'Marinated goose liver',
-      'One of the tastiest holiday meals.',
-      'https://i.pinimg.com/736x/c0/6b/21/c06b21174d1ad40cd17440d416addc06--le-foie-perfect-wedding.jpg',
-      [
-        {name: 'Goose liver', amount: 5},
-        {name: 'Potato', amount: 3}
-      ]
-    ),
-    new Recipe(
-      2,
-      'T-bone steak',
-      'Medium rare as it should be!',
-      'https://cdn3.volusion.com/pxtff.jqtkl/v/vspfiles/photos/TB20-2.jpg?1514363306',
-      [
-        {name: '25oz aged beef steak', amount: 1},
-        {name: 'Random veggies', amount: 10},
-        {name: 'Potato', amount: 3}
-      ]
-    )
-  ];
+  recipes: Recipe[] = [];
 
-  constructor() { }
+  constructor(private http: Http) {
+    this.getRecipes();
+  }
+
+  getRecipes(): void {
+    this.http.get(this.url).pipe(
+      map((response: Response) => {
+        const recipes: Recipe[] = response.json();
+        for (let recipe of recipes) {
+          if (!recipe['ingredients']) {
+            recipe['ingredients'] = [];
+          }
+        }
+        return recipes;
+      }),
+      catchError((error: Response) => {
+        console.log('Could not fetch recipes from the server!');
+        return [];
+      })
+    ).subscribe((recipes: Recipe[]) => {
+      this.recipes = recipes;
+      this.recipesChanged.next(this.recipes);
+    })
+  }
+
+  updatePersistence() {
+    this.recipesChanged.next(this.recipes.slice());
+    this.http.put(this.url, this.recipes).subscribe();
+  }
 
   generateId(): number {
-    return Math.max(...this.mockData.map(recipe => recipe.id)) + 1;
+    return Math.max(...this.recipes.map(recipe => recipe.id)) + 1;
   }
 
-  getRecipes(): Observable<Recipe[]> {
-    return of(this.mockData.slice());
-  }
-
-  getRecipe(id: number): Observable<Recipe> {
-    // TODO: should be immutable return value
-    return of(this.mockData.find(
-      recipe => recipe.id === id
-    ));
+  getRecipe(id: number): Recipe {
+    return this.recipes.find(recipe => recipe.id === id);
   }
 
   updateRecipe(newRecipe: Recipe) {
-    for (let i = 0; i < this.mockData.length; i++) {
-      if (this.mockData[i].id === newRecipe.id) {
-        this.mockData[i] = newRecipe;
+    for (let i = 0; i < this.recipes.length; i++) {
+      if (this.recipes[i].id === newRecipe.id) {
+        this.recipes[i] = newRecipe;
         break;
       }
     }
-    this.recipesChanged.next(this.mockData.slice());
+    this.updatePersistence();
   }
 
   createRecipe(newRecipe: Recipe) {
     newRecipe.id = this.generateId();
-    this.mockData.push(newRecipe);
-    this.recipesChanged.next(this.mockData.slice());
+    this.recipes.push(newRecipe);
+    this.updatePersistence();
   }
 
   deleteRecipe(id: number) {
-    this.mockData = this.mockData.filter(recipe => recipe.id !== id);
-    this.recipesChanged.next(this.mockData.slice());
+    this.recipes = this.recipes.filter(recipe => recipe.id !== id);
+    this.updatePersistence();
   }
 }
