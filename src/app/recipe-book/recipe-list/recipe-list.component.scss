@@ -1,0 +1,33 @@
+.recipe {
+  display: block;
+  position: relative;
+  padding: 5px 10px;
+  margin-bottom: 1rem;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  box-shadow: 1px 1px 2px 0 rgba(0, 0, 0, 0.2);
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  &:hover {
+    background-color: #bbb;
+  }
+}
+
+.active {
+  background-color: #ddd;
+}
+
+p, h5 {
+  max-width: 70%;
+}
+
+img {
+  max-height: 100px;
+  max-width: 30%;
+  position: absolute;
+  right: 0.3rem;
+  top: 0.3rem;
+}
