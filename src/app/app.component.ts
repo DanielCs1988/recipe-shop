@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import * as firebase from 'firebase';
 import {AuthEnvvars} from '../environments/auth';
-import {SocketRouter} from '../socket-lib/SocketRouter';
-import {Controller} from '../socket-lib/Controller';
+import {SocketClient} from '../socket-lib/SocketClient';
 
 @Component({
   selector: 'app-root',
@@ -11,19 +10,16 @@ import {Controller} from '../socket-lib/Controller';
 })
 export class AppComponent implements OnInit {
 
-  router: SocketRouter;
-
-  constructor() {
-    this.router = new SocketRouter('ws://localhost:5500');
-    const controller = new Controller(this.router);
-    const handlers = new Map<string, Function>();
-    handlers.set('chat', controller.onChat);
-    handlers.set('name', controller.onNameChange);
-    handlers.set('object', controller.onGetObject);
-    this.router.setupRoutes(handlers);
-  }
+  constructor(private socket: SocketClient) {}
 
   ngOnInit(): void {
+    this.socket.connect('ws://localhost:8080');
+    this.socket.on('chat', msg => console.log(msg));
+    this.socket.on('close', (ev) => console.error(ev));
+    this.socket.on('open', ev => {
+      console.info(ev);
+      this.socket.send('chat', 'kek');
+    });
     firebase.initializeApp({
       apiKey: AuthEnvvars.apiKey,
       authDomain: AuthEnvvars.authDomain

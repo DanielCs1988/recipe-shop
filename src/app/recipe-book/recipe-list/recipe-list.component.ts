@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Recipe} from '../../models/Recipe';
 import {RecipeService} from '../recipe.service';
 import {Subscription} from 'rxjs';

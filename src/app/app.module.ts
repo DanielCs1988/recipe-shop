@@ -7,7 +7,7 @@ import {ShoppingModule} from './shopping-list/shopping.module';
 import {AuthModule} from './auth/auth.module';
 import {CoreModule} from './core/core.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-
+import {SocketClient} from '../socket-lib/SocketClient';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -17,6 +17,9 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     CoreModule,
     ShoppingModule,
     AuthModule
+  ],
+  providers: [
+    SocketClient
   ],
   bootstrap: [AppComponent]
 })
