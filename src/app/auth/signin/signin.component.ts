@@ -1,7 +1,8 @@
 import {Component, ViewChild} from '@angular/core';
-import {AuthService} from '../auth.service';
 import {NgForm} from '@angular/forms';
-import {Router} from '@angular/router';
+import {Store} from '@ngrx/store';
+import {AppState} from '../../app.reducers';
+import {TrySignin} from '../store/auth.actions';
 
 @Component({
   selector: 'app-signin',
@@ -12,11 +13,11 @@ export class SigninComponent {
 
   @ViewChild('signinForm') signInForm: NgForm;
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private store: Store<AppState>) { }
 
   onSignin() {
     const email = this.signInForm.value.email;
     const password = this.signInForm.value.password;
-    this.authService.signinUser(email, password);
+    this.store.dispatch(new TrySignin({ email, password }));
   }
 }

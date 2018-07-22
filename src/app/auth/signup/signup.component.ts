@@ -1,7 +1,8 @@
 import {Component, ViewChild} from '@angular/core';
 import {NgForm} from '@angular/forms';
-import {AuthService} from '../auth.service';
-import {Router} from '@angular/router';
+import {Store} from '@ngrx/store';
+import {AppState} from '../../app.reducers';
+import {TrySignup} from '../store/auth.actions';
 
 @Component({
   selector: 'app-signup',
@@ -12,12 +13,11 @@ export class SignupComponent {
 
   @ViewChild('signupForm') signupForm: NgForm;
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private store: Store<AppState>) { }
 
   onSignup() {
     const email = this.signupForm.value.email;
     const password = this.signupForm.value.password;
-    this.authService.signupUser(email, password);
-    this.router.navigate(['/signin']);
+    this.store.dispatch(new TrySignup({ email, password }));
   }
 }

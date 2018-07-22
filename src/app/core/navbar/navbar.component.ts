@@ -1,18 +1,26 @@
-import {Component} from '@angular/core';
-import {AuthService} from '../../auth/auth.service';
-import {Router} from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {Observable} from 'rxjs';
+import {AuthState} from '../../auth/store/auth.reducers';
+import {Store} from '@ngrx/store';
+import {AppState} from '../../app.reducers';
+import {Logout} from '../../auth/store/auth.actions';
 
 @Component({
-  selector: 'app-navbar',
-  templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css']
+    selector: 'app-navbar',
+    templateUrl: './navbar.component.html',
+    styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
 
-  constructor(public authService: AuthService, private router: Router) {}
+    authState: Observable<AuthState>;
 
-  logout() {
-    this.router.navigate(['/']);
-    this.authService.logout();
-  }
+    constructor(private store: Store<AppState>) {}
+
+    ngOnInit(): void {
+        this.authState = this.store.select('auth');
+    }
+
+    logout() {
+        this.store.dispatch(new Logout());
+    }
 }
