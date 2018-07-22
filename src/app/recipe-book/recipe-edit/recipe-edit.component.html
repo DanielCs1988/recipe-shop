@@ -22,7 +22,7 @@
   <img *ngIf="imagePath.value" [src]="imagePath.value" alt="Your image">
 
   <div formArrayName="ingredients">
-    <div *ngFor="let ingredient of recipeForm.get('ingredients').controls; let i = index" [formGroupName]="i">
+    <div *ngFor="let ingredient of recipeForm.get('shoppingListState').controls; let i = index" [formGroupName]="i">
       <div class="form-group left-group">
         <input type="text" class="form-control" formControlName="name">
       </div>

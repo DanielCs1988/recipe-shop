@@ -3,7 +3,6 @@ import {HomeComponent} from './home/home.component';
 import {NavbarComponent} from './navbar/navbar.component';
 import {SharedModule} from '../shared.module';
 import {AppRoutingModule} from './app-routing.module';
-import {IngredientService} from '../shopping-list/ingredient.service';
 import {AuthInterceptor} from './auth.interceptor';
 import {AuthService} from '../auth/auth.service';
 import {AuthGuardService} from './auth-guard.service';
@@ -25,7 +24,6 @@ import {HTTP_INTERCEPTORS} from '@angular/common/http';
   ],
   providers: [
     RecipeService,
-    IngredientService,
     AuthService,
     AuthGuardService,
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}

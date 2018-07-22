@@ -1,9 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Recipe} from '../../models/Recipe';
 import {RecipeService} from '../recipe.service';
-import {IngredientService} from '../../shopping-list/ingredient.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {Subscription} from 'rxjs';
+import {Ingredient} from '../../models/Ingredient';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -17,7 +17,6 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
 
   constructor(
     private recipeService: RecipeService,
-    private ingredientService: IngredientService,
     private route: ActivatedRoute,
     private router: Router
   ) { }
@@ -33,7 +32,7 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
   }
 
   ingredientsToCart() {
-    this.ingredientService.addIngredients(this.recipe.ingredients);
+      this.recipeService.addIngredientsToCart(this.recipe.ingredients);
   }
 
   editRecipe() {

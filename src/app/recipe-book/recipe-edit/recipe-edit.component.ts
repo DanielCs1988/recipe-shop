@@ -78,7 +78,7 @@ export class RecipeEditComponent implements OnInit {
   }
 
   newIngredient() {
-    (<FormArray>this.recipeForm.get('ingredients')).push(new FormGroup({
+    (<FormArray>this.recipeForm.get('shoppingListState')).push(new FormGroup({
       'name': new FormControl(null, Validators.required),
       'amount': new FormControl(null, [
         Validators.required, Validators.pattern(/^[1-9]+\d*$/)
@@ -87,7 +87,7 @@ export class RecipeEditComponent implements OnInit {
   }
 
   deleteIngredient(index: number) {
-    (<FormArray>this.recipeForm.get('ingredients')).removeAt(index);
+    (<FormArray>this.recipeForm.get('shoppingListState')).removeAt(index);
   }
 
   closeEditor() {

@@ -2,7 +2,8 @@
   <div class="col-6">
 
     <div class="pane">
-      <a class="ingredient" *ngFor="let ingredient of ingredients" (click)="onEditIngredient(ingredient)">
+      <a class="ingredient" *ngFor="let ingredient of (shoppingListState | async).ingredients; let i = index"
+         (click)="onEditIngredient(i)">
         {{ ingredient.name }} ({{ ingredient.amount }})
       </a>
     </div>
