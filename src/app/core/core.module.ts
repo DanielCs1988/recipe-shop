@@ -5,7 +5,6 @@ import {SharedModule} from '../shared.module';
 import {AppRoutingModule} from './app-routing.module';
 import {AuthInterceptor} from './auth.interceptor';
 import {AuthGuardService} from './auth-guard.service';
-import {RecipeService} from '../recipe-book/recipe.service';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 
 @NgModule({
@@ -22,7 +21,6 @@ import {HTTP_INTERCEPTORS} from '@angular/common/http';
     AppRoutingModule
   ],
   providers: [
-    RecipeService,
     AuthGuardService,
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
   ]

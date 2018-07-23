@@ -6,7 +6,7 @@ import {HomeComponent} from './home/home.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent, pathMatch: 'full'},
-  {path: 'recipes', loadChildren: '../recipe-book/recipes.module#RecipesModule'},
+  {path: 'recipes', loadChildren: '../recipe-book/recipes.module#RecipesModule', canActivate: [AuthGuardService]},
   {path: 'shopping', component: ShoppingListComponent, canActivate: [AuthGuardService]},
 ];
 

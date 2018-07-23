@@ -2,7 +2,8 @@
 
   <a class="btn" routerLink="new">New recipe</a>
 
-  <a *ngFor="let recipe of recipes" class="recipe" routerLinkActive="active" [routerLink]="recipe.id">
+  <a *ngFor="let recipe of (recipesState | async).recipes" class="recipe"
+     routerLinkActive="active" [routerLink]="recipe.id">
     <h5>{{ recipe.name }}</h5>
     <p>{{ recipe.description }}</p>
     <img [src]="recipe.imagePath" [alt]="recipe.name">
